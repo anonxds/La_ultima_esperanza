@@ -114,11 +114,11 @@ public class MainActivity extends AppCompatActivity {
                                 });
                         AlertDialog alert = builder.create();
                         alert.show();
-
-
-
                           }
+                else if(Integer.parseInt(datak) <= 80){
+                    Toast.makeText(getApplicationContext(), "Alerta grave", Toast.LENGTH_LONG).show();
 
+                }
                 }
 
 
