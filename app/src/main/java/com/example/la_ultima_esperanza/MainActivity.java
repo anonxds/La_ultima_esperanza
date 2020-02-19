@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import android.media.MediaPlayer;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         datak = textGenerateNumber.getText().toString();
-                        textGenerateNumber.setText(String.valueOf(myRandom.nextInt(150-70+1)+70));
+                        textGenerateNumber.setText(String.valueOf(myRandom.nextInt(60-90+1)+70));
                         datak = textGenerateNumber.getText().toString();
                     }
                 });
@@ -115,9 +116,15 @@ public class MainActivity extends AppCompatActivity {
                         AlertDialog alert = builder.create();
                         alert.show();
                           }
+
                 else if(Integer.parseInt(datak) <= 80){
                     Toast.makeText(getApplicationContext(), "Alerta grave", Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder ab = new AlertDialog.Builder(MainActivity.this);
+                    ab.setMessage("Test")
+                            .show();
 
+                     MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.inflicted);
+                    mp.start();
                 }
                 }
 
