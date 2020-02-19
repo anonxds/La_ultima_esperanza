@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         datak = textGenerateNumber.getText().toString();
-                        textGenerateNumber.setText(String.valueOf(myRandom.nextInt(60-90+1)+70));
+                        textGenerateNumber.setText(String.valueOf(myRandom.nextInt(90-60+1)+70));
                         datak = textGenerateNumber.getText().toString();
                     }
                 });
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 else if(Integer.parseInt(datak) <= 80){
                     Toast.makeText(getApplicationContext(), "Alerta grave", Toast.LENGTH_LONG).show();
                     AlertDialog.Builder ab = new AlertDialog.Builder(MainActivity.this);
-                    ab.setMessage("Test")
+                    ab.setMessage("Entrando a modo somnolencia")
                             .show();
 
                      MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.inflicted);
