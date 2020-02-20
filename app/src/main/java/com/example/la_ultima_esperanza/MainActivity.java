@@ -90,36 +90,53 @@ public class MainActivity extends AppCompatActivity {
 
             }
             List<String> list;
-            int i = 1;
+            int i = 0;
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 
-                 if(Integer.parseInt(datak) <= 80){
-                     Log.d("contador", m_Text);
-                     i++;
-                     Log.d("incremento",String.valueOf(i));
-                     if(i >= 11){
-                         Toast.makeText(getApplicationContext(), "Alerta severa llamando a contactos", Toast.LENGTH_LONG).show();
-                         AlertDialog.Builder ab = new AlertDialog.Builder(MainActivity.this);
-                         ab.setMessage("Entrando a modo somnolencia")
-                                 .show();
-                         MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.inflicted);
-                         mp.start();
-                         timeoutTimer.purge();
-                     }
-                    Toast.makeText(getApplicationContext(), "Alertas "+String.valueOf(i), Toast.LENGTH_LONG).show();
-                     MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.inflicted);
-                    mp.start();
-
-                }
                 }
 
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(Integer.parseInt(datak) <= 80){
+                    Log.d("contador", m_Text);
+                    i++;
+                    Log.d("incremento",String.valueOf(i));
+                    if(i >= Integer.valueOf(m_Text)){
+                        Toast.makeText(getApplicationContext(), "Alerta severa llamando a contactos", Toast.LENGTH_LONG).show();
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("Entrando modo sonmolencia")
+                                .setMessage("La alerta se ha activado")
+                                .setPositiveButton("Notificar Contactos", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Toast.makeText(getApplicationContext(), "Contactando... "+String.valueOf(i), Toast.LENGTH_LONG).show();
+                                    }
+                                })
+                                .setNegativeButton("Ignorar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        i=0;
+                                            genTask.started=true;
+                                            timeoutTimer = new Timer();
+                                            timeoutTimer.scheduleAtFixedRate(genTask, 0, 10000);
 
+                                    }
+                                })
+                                .show();
+                        MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.inflicted);
+                        mp.start();
+                        timeoutTimer.cancel();
+                    }
+                    Toast.makeText(getApplicationContext(), "Alertas "+String.valueOf(i), Toast.LENGTH_LONG).show();
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.inflicted);
+                    mp.start();
+
+
+                }
             }
         });
         sendSMSMessage();
