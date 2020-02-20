@@ -90,41 +90,29 @@ public class MainActivity extends AppCompatActivity {
 
             }
             List<String> list;
+            int i = 1;
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(Integer.parseInt(datak)>=Integer.parseInt(m_Text)){
 
-                        Log.d("id", "Mensaje enviado");
-                        sendSMSMessage();
-                        Toast.makeText(getApplicationContext(), "SMS sent.", Toast.LENGTH_LONG).show();
-                        AlertDialog.Builder builder= new AlertDialog.Builder(MainActivity.this);
-                        builder.setMessage("¡Se activo la alerta!")
-                                .setTitle("ALERTA")
-                                .setCancelable(false)
-                                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
 
-                                    }})
-                                .setNegativeButton(" NO", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.cancel();
-                                    }
-                                });
-                        AlertDialog alert = builder.create();
-                        alert.show();
-                          }
-
-                else if(Integer.parseInt(datak) <= 80){
-                    Toast.makeText(getApplicationContext(), "Alerta grave", Toast.LENGTH_LONG).show();
-                    AlertDialog.Builder ab = new AlertDialog.Builder(MainActivity.this);
-                    ab.setMessage("Entrando a modo somnolencia")
-                            .show();
-
+                 if(Integer.parseInt(datak) <= 80){
+                     Log.d("contador", m_Text);
+                     i++;
+                     Log.d("incremento",String.valueOf(i));
+                     if(i >= 11){
+                         Toast.makeText(getApplicationContext(), "Alerta severa llamando a contactos", Toast.LENGTH_LONG).show();
+                         AlertDialog.Builder ab = new AlertDialog.Builder(MainActivity.this);
+                         ab.setMessage("Entrando a modo somnolencia")
+                                 .show();
+                         MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.inflicted);
+                         mp.start();
+                         timeoutTimer.purge();
+                     }
+                    Toast.makeText(getApplicationContext(), "Alertas "+String.valueOf(i), Toast.LENGTH_LONG).show();
                      MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.inflicted);
                     mp.start();
+
                 }
                 }
 
