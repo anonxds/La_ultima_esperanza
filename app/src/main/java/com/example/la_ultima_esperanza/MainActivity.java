@@ -120,9 +120,8 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         i=0;
-                                            genTask.started=true;
-                                            timeoutTimer = new Timer();
-                                            timeoutTimer.scheduleAtFixedRate(genTask, 0, 10000);
+                                        Toast.makeText(getApplicationContext(), "Reiniciando... "+String.valueOf(i), Toast.LENGTH_LONG).show();
+
 
                                     }
                                 })
@@ -230,6 +229,7 @@ void p(){
         public void onClick(DialogInterface dialog, int which) {
             m_Text = input.getText().toString();
            // datak = m_Text;
+
         }
     });
     builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
