@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     final ArrayList<Object> arry1 = new ArrayList<Object>();
     private Handler mHandler = new Handler();
     LineGraphSeries<DataPoint> series;
-    private String m_Text = "200";
+    private String m_Text = "80";
     String datak;
     class GenerateTask extends TimerTask {
         boolean started = false;
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     final int max = 80;
     double lastindex = 0;
     final int random = new Random().nextInt((max - min) + 1) + min;
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
             List<String> list;
-            int i = 0;
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -101,26 +101,26 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(Integer.parseInt(datak) <= 80){
+                if(Integer.parseInt(datak) <= Integer.parseInt(m_Text)){
                     Log.d("contador", m_Text);
                     i++;
                     Log.d("incremento",String.valueOf(i));
-                    if(i >= Integer.valueOf(m_Text)){
                         Toast.makeText(getApplicationContext(), "Alerta severa llamando a contactos", Toast.LENGTH_LONG).show();
                         new AlertDialog.Builder(MainActivity.this)
-                                .setTitle("Entrando modo sonmolencia")
-                                .setMessage("La alerta se ha activado")
+                                .setTitle("Alerta")
+                                .setMessage("Entrar modo sonmolencia?")
                                 .setPositiveButton("Notificar Contactos", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         Toast.makeText(getApplicationContext(), "Contactando... "+String.valueOf(i), Toast.LENGTH_LONG).show();
+                                     i=0;
                                     }
                                 })
                                 .setNegativeButton("Ignorar", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         i=0;
-                                        Toast.makeText(getApplicationContext(), "Reiniciando... "+String.valueOf(i), Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Ignorando... "+String.valueOf(i), Toast.LENGTH_LONG).show();
 
 
                                     }
@@ -128,11 +128,6 @@ public class MainActivity extends AppCompatActivity {
                                 .show();
                         MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.inflicted);
                         mp.start();
-                        timeoutTimer.cancel();
-                    }
-                    Toast.makeText(getApplicationContext(), "Alertas "+String.valueOf(i), Toast.LENGTH_LONG).show();
-                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.inflicted);
-                    mp.start();
 
 
                 }
@@ -228,6 +223,7 @@ void p(){
         @Override
         public void onClick(DialogInterface dialog, int which) {
             m_Text = input.getText().toString();
+            i=0;
            // datak = m_Text;
 
         }
